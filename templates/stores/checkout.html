@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}
+  Welcome to WaveAuto | Checkout
+{% endblock title %}
+
+{% block content %}
+
+<!-- banner -->
+<section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+            <div class="card-p-2">
+                <h5 class="display-5">My Order</h5>
+                {% if cart %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart.cartproduct_set.all  %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{item.product.name}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>&#8358;{{item.product.price | intcomma}}</td>
+                            <td>&#8358;{{item.subtotal | intcomma}}</td>
+                        </tr>
+                        {% endfor %}   
+                        <tr>
+                            <th>
+                                Total: &#8358;{{cart.total | intcomma}}
+                            </th>
+                        </tr>
+
+                    </tbody>
+                      </table>
+                {% else %}
+                  <p class="lead">Your cart is empty</p>
+                {% endif %}
+                
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card-p-2">
+                <h5 class="display-5">Checkout Form</h5>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form}}
+
+                    <div class="d-grid my-3">
+                        <button type="submit" class="btn btn-dark">Checkout To Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+{% endblock content %}

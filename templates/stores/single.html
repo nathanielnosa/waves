@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}
+  Welcome to WaveAuto | {{product.name}}
+{% endblock title %}
+
+{% block content %}
+
+<!-- banner -->
+<section id="banner">
+    <div class="container-fluid p-0">
+      {% if product %}
+        <img src="{{product.image.url}}" class="img-fluid" alt="{{product.name}}">
+      {% else %}
+        <p class="lead bg-danger p-3 text-white">
+          No Ads To Display For Now !!
+        </p>
+      {% endif %}
+    </div>
+</section>
+
+<section id="displays">
+    <div class="container">
+        {% if product %}
+        <!-- row one -->
+        <div class="row align-items-center">
+            <div class="col-md-2">
+                <div class="p-3 mb-3">
+                    <img src="{{product.image1.url}}" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="p-3 mb-3">
+                    <img src="{{product.image2.url}}" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="p-3 mb-3">
+                    <img src="{{product.image3.url}}" class="img-fluid" alt="">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="p-3 mb-3">
+                    <div class="d-grid">
+                        <a href="{% url 'addCart' product.id %}" class="btn btn-dark">Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="car-details">
+            <h2 class="my-2 fw-bold">{{product.name}} ---> Price: &#8358;{{product.price |intcomma}}</h2>
+            <div class="stars">
+                {% if product.stars == 1 %}
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif product.stars == 2 %}
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif product.stars == 3 %}
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% elif product.stars == 4 %}
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star"></i>
+                {% elif product.stars == 5 %}
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                <i class="bi bi-star-fill text-warning"></i>
+                {% else %}
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                {% endif %}
+                
+            </div>
+            <div class="detail-info py-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <i class="bi bi-person"></i> {{product.passenger}} Passenger
+                    </div>
+                    <div class="col-md-3">
+                        <i class="bi bi-briefcase"></i> {{product.luggages}} luggages
+                    </div>
+                    <div class="col-md-3">
+                        <i class="bi bi-sliders2-vertical"></i> {{product.transmission}}
+                    </div>
+                    <div class="col-md-3">
+                        <i class="bi bi-car-front"></i> {{product.doors}} Doors
+                    </div>
+                </div>
+            </div>
+            <div class="rcn my-2">
+                <h3>Refueling</h3>
+                <p class="lead my-2">
+                    {{product.refueling}}
+                </p>
+                <h3>Car Wash</h3>
+                <p class="lead my-2">
+                    {{product.washing}}
+                </p>
+                <h3>No Smoking</h3>
+                <p class="lead my-2">
+                    {{product.smoking}}
+                </p>
+                <h3>Included</h3>
+                <p class="lead my-2">
+                    {{product.included}}
+                </p>
+                <h3>Not Included</h3>
+                <p class="lead my-2">
+                    {{product.excluded}}
+                </p>
+            </div>
+
+            <a href="{% url 'addCart' product.id %}" class="btn btn-dark my-5">Add To Cart</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock content %}

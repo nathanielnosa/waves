@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+  
+<div class="container my-5">
+    <div class="card p-5">
+       <div class="row">
+           <div class="col-md-5 text-center">
+               <h3>My Personal Info</h3>
+               {% if profile %}
+                {% if profile.profile_pix %}
+                <img src="{{profile.profile_pix.url}}" width="100" height="100" class="rounded rounded-circle" alt="">
+                {% else %}
+                 <img src="{% static 'img/avar.png' %}" width="100" height="100" class="rounded rounded-circle" alt="">
+               {% endif %}
+               
+               <ul class="list-group">
+                   <li class="list-group-item"><strong>Fullname:</strong> {{profile.fullname}}</li>
+                   <li class="list-group-item"><strong>Username:</strong> {{profile.username}}</li>
+                   <a href="" class="list-group-item btn btn-success">Edit Profile</a>
+               </ul>
+               {% else %}
+                 <p class="lead bg-danger p-4">No Info</p>
+               {% endif %}
+               
+           </div>
+           <div class="col-md-7">
+               <h3>My Order Info</h3>
+
+               <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Order Id</th>
+                        <th>Order By</th>
+                        <th>Amount</th>
+                        <th>Payment Completed</th>
+                        <th>Order Status</th>
+                    </tr>
+                </thead>
+                {% if orders %}
+                <tbody>
+                    {% for order in orders  %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>WAVECOM-{{order.id}}</td>
+                            <td>{{order.ordered_by}}</td>
+                            <td>{{order.amount | intcomma}}</td>
+                            <td>{{order.payment_completed}}</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                  {% else %}
+                  <p class="lead">
+                    No Order by this user
+                  </p>
+                {% endif %}
+               </table>
+           </div>
+       </div>
+    </div>
+</div>
+{% endblock content %}

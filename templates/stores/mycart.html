@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}
+  Welcome to WaveAuto | {{product.name}}
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container my-3">
+        <h4 class="display-4">My Cart Items</h4>
+        <div class="row">
+            <div class="col-md-9 mx-auto">
+                {% if cart %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>#</th>
+                            <th>Car Image</th>
+                            <th>Car Price</th>
+                            <th>Car Name</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for item in cart.cartproduct_set.all %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="{% url 'manageCart' item.id %}?action=rmv" class="text-decoration-none text-dark"><i class="bi bi-trash"></i></a></td>
+                            <td><img src="{{item.product.image.url}}" width="100" class="img-fluid" alt=""></td>
+                            <td><b> &#8358;{{item.product.price | intcomma}}</b></td>
+                            <td>{{item.product.name}}</td>
+                            <td>
+                                <a href="{% url 'manageCart' item.id %}?action=dcr" class="text-decoration-none text-dark"><i class="bi bi-dash-circle-fill"></i></a>
+                                {{item.quantity}}
+                                <a href="{% url 'manageCart' item.id %}?action=inc" class="text-decoration-none text-dark"><i class="bi bi-plus-circle-fill"></i></a>
+                            </td>
+                            <td><b> &#8358;{{item.subtotal | intcomma}}</b></td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <th colspan="7"><h3 class="display-3">Total : <b> &#8358;{{cart.total| intcomma}}</b> </h3></th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'home' %}" class="btn btn-dark">Continue Shopping</a>
+                                </div>
+                            </td>
+                            {% if cart.cartproduct_set.all %}
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'clearCart' %}" class="btn btn-dark">Clear Cart</a>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <a href="{% url 'checkout' %}" class="btn btn-dark">Proceed To Checkout</a>
+                                </div>
+                            </td>
+                            {% else %}
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <button type="button" disabled class="btn btn-dark">Clear Cart</button>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                <div class="d-grid">
+                                    <button type="button" disabled class="btn btn-dark">Proceed To Checkout</button>
+                                </div>
+                            </td>
+                            {% endif %}
+                            
+                           
+                        </tr>
+
+                    </tbody>
+                    
+                </table>
+                {% else %}
+                  <p class="lead bg-danger p-3 text-white">No Item in your cart</p>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

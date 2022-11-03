@@ -1,0 +1,105 @@
+#loader
+{
+  margin:0;
+  padding:0;
+  background:#262626;
+}
+#loader .container-fluid{
+    background: #010138;
+    width: 100%;
+    height: 100vh;
+}
+#loader .ring
+{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:150px;
+  height:150px;
+  background:transparent;
+  border:3px solid #fff;
+  border-radius:50%;
+  text-align:center;
+  line-height:150px;
+  font-family:sans-serif;
+  font-size:20px;
+  color:#fff;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  text-shadow:0 0 10px #daa520;
+  box-shadow:0 0 20px #daa520c7;
+}
+#loader .ring:before
+{
+  content:'';
+  position:absolute;
+  top:-2px;
+  left:-2px;
+  width:100%;
+  height:100%;
+  border:3px solid transparent;
+  border-top:3px solid #daa520;
+  border-right:3px solid #daa520;
+  border-radius:50%;
+  animation:waves 2s linear infinite;
+}
+.rot
+{
+  display:block;
+  position:absolute;
+  top:calc(50% - 2px);
+  left:50%;
+  width:50%;
+  height:5px;
+  background:transparent;
+  transform-origin:left;
+  animation:animate 2s linear infinite;
+}
+.rot:before
+{
+  content:'';
+  position:absolute;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#daa520;
+  top:-15px;
+  right:-10px;
+  box-shadow:0 0 20px #daa520;
+}
+@keyframes waves
+{
+  0%
+  {
+    transform:rotate(0deg);
+  }
+  100%
+  {
+    transform:rotate(360deg);
+  }
+}
+@keyframes animate
+{
+  0%
+  {
+    transform:rotate(45deg);
+  }
+  100%
+  {
+    transform:rotate(405deg);
+  }
+}
+
+#banner img{
+  height: 85vh !important;
+  width: 100%;
+}
+
+#products .card{
+  transition: all 2s ease-in-out !important;
+}
+#products .card:hover{
+  transition: all 2s ease-in-out !important;
+  margin-bottom: -2px !important;
+}
